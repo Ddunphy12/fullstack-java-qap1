@@ -1,0 +1,11 @@
+{
+  "name": "qap-1",
+  "version": "1.0.0",
+  "description": "password gen for qap-1",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Zachery Strickland",
+  "license": "ISC"
+}
