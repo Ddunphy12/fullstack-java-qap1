@@ -12,12 +12,12 @@ Options:
 `;
 
 if (args.includes("--help") || args.includes("-h")) {
-  console.log(helpMessage); // Display help message
+  console.log(helpMessage);
   process.exit(0);
 }
 
 function showErrorAndExit(message) {
-  console.error(`Error: ${message}`);
+  console.error(`Error: ${message}`); //actual help message
   console.log('Use "index.js --help" for usage information.');
   process.exit(1);
 }
@@ -40,23 +40,59 @@ if (lengthIndex > 0) {
   }
 }
 
-// Character pools
-const smallSet = "abcdefghijklmnopqrstuvwxyz".split(""); // Lowercase letters
-const largeSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""); // Uppercase letters
-
-// Check if capital letters should be included
-let includeCaps = args.includes("--caps") || args.includes("-c");
-
-let charPool = [...smallSet]; // Start with lowercase letters
-if (includeCaps) {
-  charPool = charPool.concat(largeSet); // Add uppercase letters if flag is set
-}
-
-// Generate password
-let password = "";
-for (let i = 0; i < length; i++) {
-  const randomIndex = Math.floor(Math.random() * charPool.length);
-  password += charPool[randomIndex];
-}
-
-console.log(`Generated Password: ${password}`);
+const smallSet = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
+const largeSet = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
