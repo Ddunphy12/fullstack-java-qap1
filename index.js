@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const args = process.argv.slice(1);
+const args = process.argv.slice(2); // Correct slicing to exclude "node" and script name.
 
 const helpMessage = `
-Usage: index.js [options] [arguments]
+Usage: index.js [options]
 
 Options:
   --help, -h     Show this help message
@@ -12,7 +12,7 @@ Options:
 `;
 
 if (args.includes("--help") || args.includes("-h")) {
-  console.log(helpMessage);
+  console.log(helpMessage); //help message flag
   process.exit(0);
 }
 
@@ -22,75 +22,41 @@ function showErrorAndExit(message) {
   process.exit(1);
 }
 
+// Parse length argument
 const lengthIndex =
   args.indexOf("--length") !== -1
     ? args.indexOf("--length") + 1
     : args.indexOf("-l") + 1;
 
-let length = 8; // Default length
+let length = 8; // Default password length
 if (lengthIndex > 0) {
-  if (!args[lengthIndex] || isNaN(args[lengthIndex])) {
+  const lengthArg = args[lengthIndex];
+  if (!lengthArg || isNaN(lengthArg)) {
     showErrorAndExit(
       "Invalid or missing value for --length. Please provide a valid number."
     );
   } else {
-    length = parseInt(args[lengthIndex]);
+    length = parseInt(lengthArg);
   }
 }
 
-const smallSet = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
-const largeSet = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
+// Character pools
+const smallSet = "abcdefghijklmnopqrstuvwxyz".split(""); // Lowercase letters
+const largeSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""); // Uppercase letters
+
+// Check if capital letters should be included
+let includeCaps = args.includes("--caps") || args.includes("-c");
+
+let charPool = [...smallSet]; // Start with lowercase letters
+if (includeCaps) {
+  charPool = charPool.concat(largeSet); // Add uppercase letters if flag is set
+}
+
+// Generate password
+let password = "";
+for (let i = 0; i < length; i++) {
+  const randomIndex = Math.floor(Math.random() * charPool.length);
+  password += charPool[randomIndex];
+}
+
+console.log(`Generated Password: ${password}`);
