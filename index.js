@@ -22,7 +22,7 @@ function showErrorAndExit(message) {
   process.exit(1);
 }
 
-// Parse length argument
+//  length argument
 const lengthIndex =
   args.indexOf("--length") !== -1
     ? args.indexOf("--length") + 1
