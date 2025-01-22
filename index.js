@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const args = process.argv.slice(2); // Correct slicing to exclude "node" and script name.
+const args = process.argv.slice(1);
 
 const helpMessage = `
-Usage: index.js [options]
+Usage: index.js [options] [arguments]
 
 Options:
   --help, -h     Show this help message
@@ -17,26 +17,24 @@ if (args.includes("--help") || args.includes("-h")) {
 }
 
 function showErrorAndExit(message) {
-  console.error(`Error: ${message}`); //actual help message
+  console.error(`Error: ${message}`);
   console.log('Use "index.js --help" for usage information.');
   process.exit(1);
 }
 
-// Parse length argument
 const lengthIndex =
   args.indexOf("--length") !== -1
     ? args.indexOf("--length") + 1
     : args.indexOf("-l") + 1;
 
-let length = 8; // Default password length
+let length = 8; // Default length
 if (lengthIndex > 0) {
-  const lengthArg = args[lengthIndex];
-  if (!lengthArg || isNaN(lengthArg)) {
+  if (!args[lengthIndex] || isNaN(args[lengthIndex])) {
     showErrorAndExit(
       "Invalid or missing value for --length. Please provide a valid number."
     );
   } else {
-    length = parseInt(lengthArg);
+    length = parseInt(args[lengthIndex]);
   }
 }
 
