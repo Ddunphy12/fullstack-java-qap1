@@ -12,12 +12,12 @@ Options:
 `;
 
 if (args.includes("--help") || args.includes("-h")) {
-  console.log(helpMessage);
+  console.log(helpMessage); //help message flag
   process.exit(0);
 }
 
 function showErrorAndExit(message) {
-  console.error(`Error: ${message}`);
+  console.error(`Error: ${message}`); //actual help message
   console.log('Use "index.js --help" for usage information.');
   process.exit(1);
 }
@@ -37,7 +37,7 @@ if (lengthIndex > 0) {
     length = parseInt(args[lengthIndex]);
   }
 }
-
+// the caps and lowercase for the gen
 const smallSet = [
   "a",
   "b",
@@ -94,3 +94,22 @@ const largeSet = [
   "Y",
   "Z",
 ];
+
+let includeCaps = false; //starts false
+if (args.includes("--caps") || args.includes("-c")) {
+  includeCaps = true;
+}
+
+let charPool = smallSet; // Starts with low
+if (includeCaps) {
+  charPool += largeSet; // Adds upp if flag is set off
+}
+
+let password = "";
+for (let i = 0; i < length; i++) {
+  //loop
+  const randomIndex = Math.floor(Math.random() * charPool.length); //Main gen
+  password += charPool[randomIndex];
+}
+
+console.log(`Generated Password: ${password}`);
